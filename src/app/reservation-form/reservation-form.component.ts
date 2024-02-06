@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReservationService } from '../reservation/reservation.service';
+import { Reservation } from '../model/reservation';
 
 @Component({
   selector: 'app-reservation-form',
@@ -13,7 +15,9 @@ export class ReservationFormComponent implements OnInit{
   // A constructor - Gets built when there is an instance of a class
   // This is an example of dependency injection
   // Once injected into a constructor you can use in the entire component
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private reservationService: ReservationService) {
 
   }
 
@@ -29,7 +33,9 @@ export class ReservationFormComponent implements OnInit{
 
   onSubmit() {
     if(this.reservationForm.valid) {
-      console.log("valid");
+
+      let reservation: Reservation = this.reservationForm.value;
+      this.reservationService.addReservation(reservation);
     }
   }
 
